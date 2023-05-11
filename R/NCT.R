@@ -369,7 +369,7 @@ NCT <- function(data1, data2,
         diffcen.permtemp <- as.matrix(cen1permtemp) - as.matrix(cen2permtemp)
         if(nodes[1]=="all"){
           diffcen.perm[i,] <- reshape2::melt(diffcen.permtemp[,centrality])$value
-        } else {
+        } else { # TODO: Fix "which" indexing problem
           diffcen.perm[i,] <- reshape2::melt(diffcen.permtemp[which(nodes%in%colnames(data1)),centrality])$value
         } 
       }
@@ -497,7 +497,7 @@ NCT <- function(data1, data2,
                                 diffcen.permtemp <- as.matrix(cen1permtemp) - as.matrix(cen2permtemp)
                                 if(nodes[1]=="all"){
                                   diffcen.perm[i,] <- reshape2::melt(diffcen.permtemp[,centrality])$value
-                                } else {
+                                } else { # TODO: Fix "which" indexing problem
                                   diffcen.perm[i,] <- reshape2::melt(diffcen.permtemp[which(nodes%in%colnames(data1)),centrality])$value
                                 } 
                               } else {
@@ -615,7 +615,7 @@ NCT <- function(data1, data2,
   if(test.centrality){
     if(nodes[1]=="all"){
       diffcen.real.vec <- reshape2::melt(diffcen.real[,centrality])$value
-    } else {
+    } else { # TODO: Fix "which" indexing problem
       diffcen.real.vec <- reshape2::melt(diffcen.real[which(nodes%in%colnames(data1)),centrality])$value
     } 
     diffcen.realmat <- matrix(diffcen.real.vec, it, nnodes*length(centrality), 

@@ -24,7 +24,8 @@ Imports:
     doParallel,
     parallelly
 Suggests:
-    networktools
+    networktools,
+    testthat (>= 3.0.0)
 Description: This permutation based hypothesis test, suited for Gaussian and binary data, 
     assesses the difference between two networks based on several invariance measures 
     (e.g., network structure invariance, global strength invariance, edge invariance). 
@@ -35,3 +36,4 @@ Description: This permutation based hypothesis test, suited for Gaussian and bin
     <doi:10.13140/RG.2.2.29455.38569>.
 License: GPL-2
 RoxygenNote: 7.1.2
+Config/testthat/edition: 3

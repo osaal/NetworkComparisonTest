@@ -169,6 +169,10 @@ NCT <- function(data1, data2,
   nvars <- ncol(x1)
   nedges <- nvars*(nvars-1)/2
   nnodes <- ifelse(nodes[1]=="all",nvars,length(nodes))
+  # Catch if nodes is not suitable for use in centrality testing and stop
+  if(!is.vector(nodes, mode="character") && !is.vector(nodes, mode="numeric")) {
+    stop("Node argument is not a string or vector of names/indices")
+  }
   nodes <- if(is.numeric(nodes)){colnames(data1)[nodes]} else{nodes}
   if(is.list(edges)){
     edges.tested <- edges
@@ -369,8 +373,8 @@ NCT <- function(data1, data2,
         diffcen.permtemp <- as.matrix(cen1permtemp) - as.matrix(cen2permtemp)
         if(nodes[1]=="all"){
           diffcen.perm[i,] <- reshape2::melt(diffcen.permtemp[,centrality])$value
-        } else { # TODO: Fix "which" indexing problem
-          diffcen.perm[i,] <- reshape2::melt(diffcen.permtemp[which(nodes%in%colnames(data1)),centrality])$value
+        } else { # TODO: Fix "which" indexing problem. FIX IMPLEMENTED, TEST!
+          diffcen.perm[i,] <- reshape2::melt(diffcen.permtemp[nodes,centrality])$value
         } 
       }
       
@@ -497,8 +501,8 @@ NCT <- function(data1, data2,
                                 diffcen.permtemp <- as.matrix(cen1permtemp) - as.matrix(cen2permtemp)
                                 if(nodes[1]=="all"){
                                   diffcen.perm[i,] <- reshape2::melt(diffcen.permtemp[,centrality])$value
-                                } else { # TODO: Fix "which" indexing problem
-                                  diffcen.perm[i,] <- reshape2::melt(diffcen.permtemp[which(nodes%in%colnames(data1)),centrality])$value
+                                } else { # TODO: Fix "which" indexing problem. FIX IMPLEMENTED, TEST!
+                                  diffcen.perm[i,] <- reshape2::melt(diffcen.permtemp[nodes,centrality])$value
                                 } 
                               } else {
                                 diffcen.perm[i,] = NA
@@ -615,8 +619,8 @@ NCT <- function(data1, data2,
   if(test.centrality){
     if(nodes[1]=="all"){
       diffcen.real.vec <- reshape2::melt(diffcen.real[,centrality])$value
-    } else { # TODO: Fix "which" indexing problem
-      diffcen.real.vec <- reshape2::melt(diffcen.real[which(nodes%in%colnames(data1)),centrality])$value
+    } else { # TODO: Fix "which" indexing problem. FIX IMPLEMENTED, TEST!
+      diffcen.real.vec <- reshape2::melt(diffcen.real[nodes,centrality])$value
     } 
     diffcen.realmat <- matrix(diffcen.real.vec, it, nnodes*length(centrality), 
                               byrow = TRUE)
